@@ -17,6 +17,7 @@ def save_img(data,name,out):
     out.writestr(name, img)
 
 def train(nfolds):
+    dice = Dice_th_pred(np.arange(0.2,0.7,0.01))
     for fold in range(nfolds):
         ds_t = HuBMAPDatasetTrain(fold=fold, train=True, tfms=get_transforms_train())
         ds_v = HuBMAPDatasetTest(fold=fold, train=False)
@@ -46,3 +47,5 @@ def train(nfolds):
                 dice.accumulate(p[0],p[1])
                 save_img(p[0],p[2],out)
         gc.collect()
+    return dice
+        
