@@ -1,5 +1,7 @@
 # HPA + HuBMAP: Hacking the Human Body
 
+![](https://drive.google.com/uc?id=1pbIvjTlhGywfhiMTqcsdOB5LSHlklM90)
+
 ## Methodology:
 
 Since we don’t have the computation resources, we will focus more on data augmentation, data collection, hyperparameter tuning, and post-processing.
