@@ -16,7 +16,7 @@ This is a work in progress!
 
 ---
 
-In this competition, we'll **identify and segment functional tissue units (FTUs)** accross **five** human organs:
+In this [Kaggle competition](https://www.kaggle.com/competitions/hubmap-organ-segmentation), we'll **identify and segment functional tissue units (FTUs)** accross **five** human organs:
 
 * Prostate
 * Spleen
