@@ -23,7 +23,8 @@ Due to limited computation resources, we focus more on data augmentation, data c
 * Augmentation: robust augmentation pipeline (basic, morphology, color)
 
 ### Model architecture:
-* UNeXt101 + UNeXt50
+* UNeXt101
+* UNeXt50 (baseline)
 
 ### Training setup:
 * Loss functions: BCE, and symmetric Lovasz
