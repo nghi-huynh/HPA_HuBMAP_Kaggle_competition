@@ -40,27 +40,39 @@ They only release public *Human Protein Atlas (HPA)* data for the training datas
 
 ---
 
-Due to limited computation resources, we focus more on **data augmentation**, **data collection**, **hyperparameter tuning**, and **post-processing**.
+Since we don’t have the computation resources, we will focus more on **data augmentation**, **data collection**, **hyperparameter tuning**, and **post-processing**.
 
 
-### Data + Augmentation:
+### Data preparation + Augmentation:
 
-* External data: collect on many stains of PAS, H&E, DAB/H of the target organs
-* Augmentation: robust augmentation pipeline (basic, morphology, color)
+* **Class imbalance**: collect external data on many stains of PAS, H&E, DAB/H of the target organs, augment imbalance classes using the pyramid blending technique
+
+* **Staining and imaging protocols**: -> inter- and intra-class variability -> augmentation: basic, morphology, color 
+
+* **Data standardization**: using avg mean and std
+
+* **Tissue, artifact, and background**: -> deep tissue detector (filtering techniques like triangle, Otsu, CNN): -> detect tissue, artifact, and background ->reduce the quantity, increase the quality of the image data to be analyzed -> only tissues are selected for further analysis
 
 ### Model architecture:
-* UNeXt101
+* UNeXt101: based on U-NET architecture with a semi-weakly supervised ResNet101 as a backbone encoder
+* Transfer learning to reduce the risk of overfitting
 * UNeXt50 (baseline)
 
-### Training setup:
+### Training, validation setup:
+* Training + validation: 70-30 or 80-20 split
+  * WSIs or tile-wise images: important that the partition between training, validation and test-set is at the patient-level -> partition patients between the sets is a good first step
+  * CV, bootstrapping
 * Loss functions: BCE, and symmetric Lovasz
-* Iterations: 1000 with slicing learning rates
+* Iterations: 1000 with slicing learning rates (higher learning rate in the beginning and gradually decreasing learning rate in the end)
 
-### Testing setup:
+### Inference:
+* **Metric**: mean Dice coefficient
+* **Post-processing**:
+  * Center tiling -> assume all the masks are in the center tiles -> only predict and average predictions on the center tiles
+  * Cascade PSP (optional)
+* **Result visualization**
+
 * Evaluation and Inference of the predictions from multiple models with Test Time Augmentation(TTA)
-
-### Post-processing: 
-* CascadePSP
 
 ## Usage:
 
@@ -75,12 +87,15 @@ Due to limited computation resources, we focus more on **data augmentation**, **
 **2. Stain Normalization**
 
   * Normalize training data based on StainNet using `notebooks/Stain_Normalization.ipynb`
+  
+**4. WSI Preprocessing**
+  * Tile and identify tissue/non-tissue based on thresholding technique using 'notebooks/wsi-preprocessing-tiling-tissue-segmentation.ipynb`
 
-**3. Train**
+**5. Train**
 
   * Train models using `notebooks/training-fastai-baseline.ipynb`
 
-**4. Inference**
+**6. Inference**
 
   * Validate models and generate submissions using `notebooks/inference-fastai-baseline.ipynb`
 
