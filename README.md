@@ -89,7 +89,7 @@ Since we don’t have the computation resources, we will focus more on **data au
   * Normalize training data based on StainNet using `notebooks/Stain_Normalization.ipynb`
   
 **4. WSI Preprocessing**
-  * Tile and identify tissue/non-tissue based on thresholding technique using 'notebooks/wsi-preprocessing-tiling-tissue-segmentation.ipynb`
+  * Tile and identify tissue/non-tissue based on thresholding technique using `notebooks/wsi-preprocessing-tiling-tissue-segmentation.ipynb`
 
 **5. Train**
 
