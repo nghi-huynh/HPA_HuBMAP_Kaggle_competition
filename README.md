@@ -43,15 +43,27 @@ They only release public *Human Protein Atlas (HPA)* data for the training datas
 Since we don’t have the computation resources, we will focus more on **data augmentation**, **data collection**, **hyperparameter tuning**, and **post-processing**.
 
 
-### Data preparation + Augmentation:
+### Data preparation + preprocessing:
 
 * **Class imbalance**: collect external data on many stains of PAS, H&E, DAB/H of the target organs, augment imbalance classes using the pyramid blending technique
 
+<img src='imgs/organ_distribution.png'>
+
 * **Staining and imaging protocols**: -> inter- and intra-class variability -> augmentation: basic, morphology, color 
+
+<img src='imgs/inter_intra_variability.png'>
+
+* **Gaussian Laplacian Pyramid Blending**: generate more data within classes. This technique aims to improve the generalization ability of ML algorithms dealing with HIs. Demo from blending image + mask from large intestine
+
+<img src='imgs/li_blending.png'>
 
 * **Data standardization**: using avg mean and std
 
-* **Tissue, artifact, and background**: -> deep tissue detector (filtering techniques like triangle, Otsu, CNN): -> detect tissue, artifact, and background ->reduce the quantity, increase the quality of the image data to be analyzed -> only tissues are selected for further analysis
+* **Tissue, artifact, and background**: -> deep tissue detector (filtering techniques like triangle, Otsu, CNN): -> detect tissue, artifact, and background ->reduce the quantity, increase the quality of the image data to be analyzed -> only tissues are selected for further analysis. Tissue augmentation using Otsu's binarization technique. Demo:
+
+<img src='imgs/color_histogram_original_img.png'>
+
+<img src='imgs/otsu_thresholded_img.png'>
 
 ### Model architecture:
 * UNeXt101: based on U-NET architecture with a semi-weakly supervised ResNet101 as a backbone encoder
