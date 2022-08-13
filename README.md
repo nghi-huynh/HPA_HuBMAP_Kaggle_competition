@@ -122,18 +122,23 @@ Clone the repository
 ```
 src
 ├── data
-│   ├── dataset.py          # Torch datasets
-│   └── transforms.py       # Augmentations
+│   ├── dataset.py              # Torch dataset
+│   └── transforms.py           # Augmentation
+├── data_preparation
+│   ├── data_preparation.py     # Generate rescaled + tilede dataset
+│   ├── dataset.py              # Torch dataset
+│   ├── get_config.py           # Configuration
+│   └── utils.py                # Util functions
 ├── inference
-│   └── test.py             # Test inference
+│   └── test.py                 # Test inference
 ├── models
-│   └── models.py           # Model architectures
-├── params.py               # Main parameters
+│   └── models.py               # Model architectures
+├── params.py                   # Main parameters
 ├── training
-│   ├── predict.py          # Prediction functions
-│   └── train.py            # Model Fitting
+│   ├── predict.py              # Prediction helper functions
+│   └── train.py                # Model fitting
 └── utils
-    ├── lovasz_loss.py      # Loss functions
-    ├── metrics.py          # Metrics for the competition
-    └── rle.py              # RLE encoding utils
+    ├── lovasz_loss.py          # Loss functions
+    ├── metrics.py              # Metrics used in the competition
+    └── rle.py                  # RLE encoding utils
 ```
