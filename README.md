@@ -78,7 +78,7 @@ Since we don’t have the computation resources, we will focus more on **data au
 
 ---
 
-* Clone the repository
+Clone the repository
 
 **1. Data Exploration**
 
@@ -87,6 +87,10 @@ Since we don’t have the computation resources, we will focus more on **data au
 **2. Stain Normalization**
 
   * Normalize training data based on StainNet using `notebooks/Stain_Normalization.ipynb`
+  
+**3. Data Augmentation: Pyramid Blending**
+
+  * Blend images and masks based on organ to augment imbalanced classes (spleen, lung, and large intestine) using `notebooks/data-augmentation-laplacian-pyramid-blending.ipynb`
   
 **4. WSI Preprocessing**
   * Tile and identify tissue/non-tissue based on thresholding technique using `notebooks/wsi-preprocessing-tiling-tissue-segmentation.ipynb`
