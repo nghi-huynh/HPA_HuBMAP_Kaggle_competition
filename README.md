@@ -36,55 +36,6 @@ The challenge in this competition is to build algorithms that **generalize**:
 
 They only release public *Human Protein Atlas (HPA)* data for the training dataset. However, they will release private *HPA* data and *Human BioMolecular Atlas Program (HuBMAP)* for their public test set. For the private test set, they only use *HuBMAP* data.
 
-## Methodology:
-
----
-
-Since we don’t have the computation resources, we will focus more on **data augmentation**, **data collection**, **hyperparameter tuning**, and **post-processing**.
-
-
-### Data preparation + preprocessing:
-
-* **Class imbalance**: collect external data on many stains of PAS, H&E, DAB/H of the target organs, augment imbalance classes using the pyramid blending technique
-
-<img src='imgs/organ_distribution.png'>
-
-* **Staining and imaging protocols**: -> inter- and intra-class variability -> augmentation: basic, morphology, color 
-
-<img src='imgs/inter_intra_variability.png'>
-
-* **Gaussian Laplacian Pyramid Blending**: generate more data within classes. This technique aims to improve the generalization ability of ML algorithms dealing with HIs. Demo from blending image + mask from large intestine
-
-<img src='imgs/li_blending.png'>
-
-* **Data standardization**: using avg mean and std
-
-* **Tissue, artifact, and background**: -> deep tissue detector (filtering techniques like triangle, Otsu, CNN): -> detect tissue, artifact, and background ->reduce the quantity, increase the quality of the image data to be analyzed -> only tissues are selected for further analysis. Tissue augmentation using Otsu's binarization technique. Demo:
-
-<img src='imgs/color_histogram_original_img.png'>
-
-<img src='imgs/otsu_thresholded_img.png'>
-
-### Model architecture:
-* UNeXt101: based on U-NET architecture with a semi-weakly supervised ResNet101 as a backbone encoder
-* Transfer learning to reduce the risk of overfitting
-* UNeXt50 (baseline)
-
-### Training, validation setup:
-* Training + validation: 70-30 or 80-20 split
-  * WSIs or tile-wise images: important that the partition between training, validation and test-set is at the patient-level -> partition patients between the sets is a good first step
-  * CV, bootstrapping
-* Loss functions: BCE, and symmetric Lovasz
-* Iterations: 1000 with slicing learning rates (higher learning rate in the beginning and gradually decreasing learning rate in the end)
-
-### Inference:
-* **Metric**: mean Dice coefficient
-* **Post-processing**:
-  * Center tiling -> assume all the masks are in the center tiles -> only predict and average predictions on the center tiles
-  * Cascade PSP (optional)
-* **Result visualization**
-
-* Evaluation and Inference of the predictions from multiple models with Test Time Augmentation(TTA)
 
 ## Usage:
 
